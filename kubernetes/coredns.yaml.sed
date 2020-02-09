@@ -53,6 +53,7 @@ metadata:
 data:
   Corefile: |
     .:53 {
+        log
         errors
         health {
           lameduck 5s
@@ -62,7 +63,7 @@ data:
           fallthrough in-addr.arpa ip6.arpa
         }FEDERATIONS
         prometheus :9153
-        forward . UPSTREAMNAMESERVER
+        forward . 8.8.8.8 4.4.4.4
         cache 30
         loop
         reload
@@ -111,7 +112,7 @@ spec:
             topologyKey: kubernetes.io/hostname
       containers:
       - name: coredns
-        image: coredns/coredns:1.6.6
+        image: coredns/coredns:latest
         imagePullPolicy: IfNotPresent
         resources:
           limits:
